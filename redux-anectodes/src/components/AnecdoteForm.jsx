@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { createAnectode } from "../reducers/anecdoteReducer";
+import { createAnecdote } from "../reducers/anecdoteReducer";
 import {
   clearNotification,
   createNotification,
@@ -8,10 +8,13 @@ import {
 export const AnecdoteForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(createAnectode(e.target.content.value));
-    dispatch(createNotification(`Anectode "${e.target.content.value}" added.`));
+    const content = e.target.content.value;
+    e.target.content.value = "";
+    dispatch(createAnecdote(content));
+
+    dispatch(createNotification(`Anecdote "${content.content}" added.`));
     setTimeout(() => {
       dispatch(clearNotification());
     }, 5000);
@@ -20,7 +23,6 @@ export const AnecdoteForm = () => {
   return (
     <div>
       <h2>create new</h2>
-
       <form onSubmit={handleSubmit}>
         <div>
           <input name="content" />
