@@ -1,4 +1,3 @@
-import React from "react";
 import { create } from "../reducers/anecdoteReducer";
 import { useDispatch } from "react-redux";
 
@@ -7,7 +6,7 @@ export const AnecdoteForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(create(e));
+    dispatch(create(e.target.content.value));
   };
 
   return (

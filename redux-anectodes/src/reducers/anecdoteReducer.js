@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux'
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -25,17 +27,32 @@ export const vote = (id) => {
     payload: id
   }
 }
-export const create = (e) => {
+export const create = (content) => {
   return {
     type: "create",
-    payload: e.target.content.value
+    payload: content
+  }
+}
+export const filter = (filter) => {
+  return {
+    type: "filter",
+    payload: filter
   }
 }
 
+const filterReducer = (state = "", action) => {
+  // console.log('action', action)
 
-const reducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
+  switch (action.type) {
+    case 'filter':
+      return action.payload
+    default:
+      return state
+  }
+}
+
+const anectodeReducer = (state = initialState, action) => {
+  // console.log('action', action)
 
   if (action.type === "vote") {
 
@@ -51,6 +68,14 @@ const reducer = (state = initialState, action) => {
       return state.concat([{ content: action.payload, votes: 0, id: getId() }])
     default: return state
   }
+
+
+
 }
+
+const reducer = combineReducers({
+  anectodes: anectodeReducer,
+  filter: filterReducer
+})
 
 export default reducer
