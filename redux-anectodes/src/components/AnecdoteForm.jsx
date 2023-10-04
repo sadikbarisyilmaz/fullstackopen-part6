@@ -25,7 +25,7 @@ export const AnecdoteForm = () => {
       <h2>create new</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <input name="content" />
+          <input name="content" required />
         </div>
         <input type="submit" value="Submit" />
       </form>
